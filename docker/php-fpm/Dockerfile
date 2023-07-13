@@ -1,5 +1,8 @@
 FROM php:8.1-fpm
 
+RUN apt-get update; \
+    apt-get install -y git zip unzip
+
 # Install composer and add its bin to the PATH.
 RUN curl -s http://getcomposer.org/installer | php \
     && echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.bashrc \

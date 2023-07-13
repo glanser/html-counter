@@ -1,5 +1,7 @@
 up:
 	@docker-compose up -d && docker-compose exec --user=www-data  parser bash -c "composer install"
+rebuild:
+	@docker-compose up -d --build && docker-compose exec --user=www-data  parser bash -c "composer install"
 in:
 	@docker-compose exec --user=www-data parser bash
 count:
