@@ -1,0 +1,25 @@
+{
+    "name": "glanser/html-tags-counter",
+    "type": "project",
+    "description": "Html page tags counter",
+    "require": {
+        "php": "^8.1",
+        "symfony/console": "^6.3",
+        "guzzlehttp/guzzle": "^7.7",
+        "symfony/dependency-injection": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "HtmlParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.2",
+        "symfony/var-dumper": "^6.3"
+    }
+}

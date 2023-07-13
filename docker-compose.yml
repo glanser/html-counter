@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  parser:
+    build:
+      context: ./docker/php-fpm
+    volumes:
+      - ./:/var/www/html

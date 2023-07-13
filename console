@@ -1,0 +1,31 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
+use GuzzleHttp\Client;
+use HtmlParser\Commands\CountHtmlTagsCommand;
+use HtmlParser\Services\HtmlClient\HtmlClient;
+use HtmlParser\Services\HtmlClient\HtmlClientInterface;
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+
+$container = new ContainerBuilder();
+
+$container->register('service.guzzle-client', Client::class);
+$container->register(HtmlClientInterface::class, HtmlClient::class)
+    ->addArgument(new Reference('service.guzzle-client'));
+
+$container->register('command.count-html-tags', CountHtmlTagsCommand::class)
+    ->addArgument(new Reference(HtmlClientInterface::class));
+
+$application = new Application();
+
+/** @var CountHtmlTagsCommand $command */
+$command = $container->get('command.count-html-tags');
+$application->add($command);
+
+$application->run();
