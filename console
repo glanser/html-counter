@@ -9,6 +9,8 @@ use GuzzleHttp\Client;
 use HtmlParser\Commands\CountHtmlTagsCommand;
 use HtmlParser\Services\HtmlClient\HtmlClient;
 use HtmlParser\Services\HtmlClient\HtmlClientInterface;
+use HtmlParser\Services\TagCounter\TagCounter;
+use HtmlParser\Services\TagCounter\TagCounterInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -19,8 +21,11 @@ $container->register('service.guzzle-client', Client::class);
 $container->register(HtmlClientInterface::class, HtmlClient::class)
     ->addArgument(new Reference('service.guzzle-client'));
 
+$container->register(TagCounterInterface::class, TagCounter::class);
+
 $container->register('command.count-html-tags', CountHtmlTagsCommand::class)
-    ->addArgument(new Reference(HtmlClientInterface::class));
+    ->addArgument(new Reference(HtmlClientInterface::class))
+    ->addArgument(new Reference(TagCounterInterface::class));
 
 $application = new Application();
 
